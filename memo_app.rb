@@ -28,6 +28,7 @@ end
 
 get '/memos' do
   @title = 'Topページ'
+  @memos = Memo.read
   erb :top
 end
 
