@@ -46,7 +46,9 @@ post '/memos' do
 end
 
 get '/memos/:id' do |id|
-
+  @title = '詳細ページ'
+  @memo = Memo.read[id]
+  erb :show
 end
 
 delete '/memos/:id' do |id|
