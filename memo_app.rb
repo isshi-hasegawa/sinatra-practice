@@ -11,12 +11,13 @@ get '/' do
 end
 
 get '/memos' do
-  @title = 'top'
+  @title = 'Topページ'
   erb :top
 end
 
 get '/new' do
-
+  @title = '新規作成ページ'
+  erb :new
 end
 
 post '/memos' do
