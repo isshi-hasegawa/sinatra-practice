@@ -40,7 +40,7 @@ end
 post '/memos' do
   memo_data = Memo.read
   id = SecureRandom.uuid
-  memo_data[id.to_s] = { "title": params[:title], "content": params[:content] }
+  memo_data[id] = { "title": params[:title], "content": params[:content] }
   Memo.save(memo_data)
   redirect '/memos'
 end
