@@ -68,5 +68,8 @@ patch '/memos/:id' do |id|
 end
 
 delete '/memos/:id' do |id|
-
+  memo_data = Memo.read
+  memo_data.delete(id)
+  Memo.save(memo_data)
+  redirect '/memos'
 end
