@@ -5,18 +5,18 @@ require 'securerandom'
 require 'sinatra'
 require 'sinatra/reloader'
 
-JSON_PATH = 'db/memos.json'
+FILE_PATH = 'db/memos.json'
 
 class Memo
   def self.read
-    Memo.save(memo_data = {}) unless File.exist?(JSON_PATH)
-    File.open(JSON_PATH) do |f|
+    Memo.save({}) unless File.exist?(FILE_PATH)
+    File.open(FILE_PATH) do |f|
       JSON.parse(f.read)
     end
   end
 
   def self.save(memo_data)
-    File.open(JSON_PATH, 'w') do |f|
+    File.open(FILE_PATH, 'w') do |f|
       JSON.dump(memo_data, f)
     end
   end
@@ -47,18 +47,26 @@ end
 
 get '/memos/:id' do |id|
   @title = '詳細ページ'
+  @id = id
   @memo = Memo.read[id]
   erb :show
 end
 
-delete '/memos/:id' do |id|
-
+get '/memos/:id/edit' do |id|
+  @title = '編集ページ'
+  @id = id
+  @memo = Memo.read[id]
+  erb :edit
 end
 
 patch '/memos/:id' do |id|
-
+  memo_data = Memo.read
+  updated_params = { "title": params[:title], "content": params[:content] }
+  memo_data[id] = updated_params
+  Memo.save(memo_data)
+  redirect '/memos'
 end
 
-get '/memos/:id/edit' do |id|
+delete '/memos/:id' do |id|
 
 end
