@@ -1,5 +1,5 @@
-<p>タイトル：<%= @memo["title"] %></p>
-<p>内容：<%= @memo["content"] %></p>
+<p>タイトル：<%= escape(@memo["title"]) %></p>
+<p>内容：<%= escape(@memo["content"]) %></p>
 <a href="/memos/<%= @id %>/edit">編集</a>
 <form action="/memos/<%= @id %>" method="post">
   <input type="hidden" name="_method" value="delete">

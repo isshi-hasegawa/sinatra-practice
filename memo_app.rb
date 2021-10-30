@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'cgi'
 require 'json'
 require 'securerandom'
 require 'sinatra'
@@ -19,6 +20,12 @@ class Memo
     File.open(FILE_PATH, 'w') do |f|
       JSON.dump(memo_data, f)
     end
+  end
+end
+
+helpers do
+  def escape(string)
+    CGI.escapeHTML(string)
   end
 end
 
