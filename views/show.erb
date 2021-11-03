@@ -1,7 +1,23 @@
-<p>タイトル：<%= escape(@memo["title"]) %></p>
-<p>内容：<%= escape(@memo["content"]) %></p>
-<a href="/memos/<%= @id %>/edit">編集</a>
-<form action="/memos/<%= @id %>" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <button type="submit">削除</button>
-</form>
+<div class="container">
+  <div class="row">
+    <div class="col s6 offset-s3">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title"><%= h(@memo["title"]) %></span>
+          <p><%= h(@memo["content"]) %></p>
+        </div>
+      </div>
+      <div class="col s6 center">
+        <a href="/memos/<%= @id %>/edit" class="btn waves-effect waves-light"><i class="material-icons left">edit</i>edit</a>
+      </div>
+      <div class="col s6 center">
+        <form action="/memos/<%= @id %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <button class="btn waves-effect waves-light" type="submit" name="action">delete
+            <i class="material-icons left">delete</i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

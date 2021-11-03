@@ -1,7 +1,7 @@
-<p>Top</p>
-<a href="/new">メモを作る</a>
-<% @memos.each do |memo_id, memo| %>
-  <ul>
-    <li><a href="/memos/<%= memo_id %>"><%= escape(memo["title"]) %></a></li>
-  </ul>
-<% end %>
+<div class="container">
+  <% @memos.each do |memo_id, memo| %>
+    <ul>
+      <li><a href="/memos/<%= memo_id %>" class="black-text"><%= h(memo["title"]) %></a></li>
+    </ul>
+  <% end %>
+</div>

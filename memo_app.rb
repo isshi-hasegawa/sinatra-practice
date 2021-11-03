@@ -24,7 +24,7 @@ class Memo
 end
 
 helpers do
-  def escape(string)
+  def h(string)
     CGI.escapeHTML(string)
   end
 end
@@ -34,13 +34,13 @@ get '/' do
 end
 
 get '/memos' do
-  @title = 'Topページ'
+  @title = 'SINATRA MEMO APP'
   @memos = Memo.read
   erb :top
 end
 
 get '/new' do
-  @title = '新規作成ページ'
+  @title = 'SINATRA MEMO APP | ADD'
   erb :new
 end
 
@@ -53,14 +53,14 @@ post '/memos' do
 end
 
 get '/memos/:id' do |id|
-  @title = '詳細ページ'
+  @title = 'SINATRA MEMO APP | MEMO'
   @id = id
   @memo = Memo.read[id]
   erb :show
 end
 
 get '/memos/:id/edit' do |id|
-  @title = '編集ページ'
+  @title = 'SINATRA MEMO APP | EDIT'
   @id = id
   @memo = Memo.read[id]
   erb :edit
