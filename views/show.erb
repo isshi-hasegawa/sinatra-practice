@@ -8,10 +8,10 @@
         </div>
       </div>
       <div class="col s6 center">
-        <a href="/memos/<%= @id %>/edit" class="btn waves-effect waves-light"><i class="material-icons left">edit</i>edit</a>
+        <a href="/memos/<%= @memo["id"] %>/edit" class="btn waves-effect waves-light"><i class="material-icons left">edit</i>edit</a>
       </div>
       <div class="col s6 center">
-        <form action="/memos/<%= @id %>" method="post">
+        <form action="/memos/<%= @memo["id"] %>" method="post">
           <input type="hidden" name="_method" value="delete">
           <button class="btn waves-effect waves-light" type="submit" name="action">delete
             <i class="material-icons left">delete</i>

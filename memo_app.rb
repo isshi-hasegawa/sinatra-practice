@@ -1,26 +1,31 @@
 # frozen_string_literal: true
 
 require 'cgi'
-require 'json'
-require 'securerandom'
+require 'pg'
 require 'sinatra'
 require 'sinatra/reloader'
 
-FILE_PATH = 'db/memos.json'
-
 class Memo
-  def self.read
-    return {} unless File.exist?(FILE_PATH)
+  @connect = PG.connect(dbname: 'sinatra_memo_app')
 
-    File.open(FILE_PATH) do |f|
-      JSON.parse(f.read)
-    end
+  def self.index
+    @connect.exec('SELECT * FROM Memos')
   end
 
-  def self.save(memo_data)
-    File.open(FILE_PATH, 'w') do |f|
-      JSON.dump(memo_data, f)
-    end
+  def self.create(title, content)
+    @connect.exec('INSERT INTO Memos (title, content) VALUES ($1, $2);', [title, content])
+  end
+
+  def self.show(id)
+    @connect.exec('SELECT id, title, content FROM Memos WHERE id = $1;', [id]).first
+  end
+
+  def self.update(title, content, id)
+    @connect.exec('UPDATE Memos SET title = $1, content = $2 WHERE id = $3;', [title, content, id])
+  end
+
+  def self.delete(id)
+    @connect.exec('DELETE FROM Memos WHERE id = $1;', [id])
   end
 end
 
@@ -36,7 +41,7 @@ end
 
 get '/memos' do
   @title = 'SINATRA MEMO APP'
-  @memos = Memo.read
+  @memos = Memo.index
   erb :top
 end
 
@@ -46,38 +51,28 @@ get '/new' do
 end
 
 post '/memos' do
-  memo_data = Memo.read
-  id = SecureRandom.uuid
-  memo_data[id] = { "title": params[:title], "content": params[:content] }
-  Memo.save(memo_data)
+  Memo.create(params[:title], params[:content])
   redirect '/memos'
 end
 
 get '/memos/:id' do |id|
   @title = 'SINATRA MEMO APP | MEMO'
-  @id = id
-  @memo = Memo.read[id]
+  @memo = Memo.show(id)
   erb :show
 end
 
 get '/memos/:id/edit' do |id|
   @title = 'SINATRA MEMO APP | EDIT'
-  @id = id
-  @memo = Memo.read[id]
+  @memo = Memo.show(id)
   erb :edit
 end
 
 patch '/memos/:id' do |id|
-  memo_data = Memo.read
-  updated_params = { "title": params[:title], "content": params[:content] }
-  memo_data[id] = updated_params
-  Memo.save(memo_data)
+  Memo.update(params[:title], params[:content], id)
   redirect '/memos'
 end
 
 delete '/memos/:id' do |id|
-  memo_data = Memo.read
-  memo_data.delete(id)
-  Memo.save(memo_data)
+  Memo.delete(id)
   redirect '/memos'
 end
