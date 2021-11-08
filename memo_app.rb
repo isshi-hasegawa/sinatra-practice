@@ -10,7 +10,8 @@ FILE_PATH = 'db/memos.json'
 
 class Memo
   def self.read
-    Memo.save({}) unless File.exist?(FILE_PATH)
+    return {} unless File.exist?(FILE_PATH)
+
     File.open(FILE_PATH) do |f|
       JSON.parse(f.read)
     end
