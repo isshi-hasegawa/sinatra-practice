@@ -2,7 +2,6 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
-    dotenv (2.7.6)
     multi_json (1.15.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
@@ -53,7 +52,6 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
-  dotenv
   pg
   rubocop
   rubocop-fjord
