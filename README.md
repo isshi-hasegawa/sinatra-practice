@@ -16,7 +16,7 @@ bundle install
 3. And run with
 
 ```
-ruby memo_app.rb
+bundle exec ruby memo_app.rb
 ```
 
 4.View at http://localhost:4567

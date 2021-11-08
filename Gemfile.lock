@@ -33,7 +33,6 @@ GEM
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    securerandom (0.1.1)
     sinatra (2.1.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
@@ -47,6 +46,7 @@ GEM
       tilt (~> 2.0)
     tilt (2.0.10)
     unicode-display_width (2.1.0)
+    webrick (1.7.0)
 
 PLATFORMS
   x86_64-darwin-20
@@ -54,9 +54,9 @@ PLATFORMS
 DEPENDENCIES
   rubocop
   rubocop-fjord
-  securerandom
   sinatra
   sinatra-contrib
+  webrick
 
 BUNDLED WITH
    2.2.28
