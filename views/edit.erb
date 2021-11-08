@@ -1,0 +1,20 @@
+<div class="container">
+  <form action="/memos/<%= @id %>" method="post" class="center-align  ">
+    <div class="row">
+      <div class="input-field col s4 offset-s4">
+        <input type="text" name="title" id="title" value=<%= @memo["title"] %>>
+        <label for="title">Title</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s4 offset-s4">
+        <textarea name="content" class="materialize-textarea" placeholder="<%= @memo["content"] %>" id="content"></textarea>
+        <label for="content">Content</label>
+      </div>
+    </div>
+    <input type="hidden" name="_method" value="patch">
+    <button class="btn waves-effect waves-light" type="submit" name="action">submit
+      <i class="material-icons right">send</i>
+    </button>
+  </form>
+</div>
